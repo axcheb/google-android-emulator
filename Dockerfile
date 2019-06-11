@@ -5,6 +5,9 @@ LABEL maintainer="nikita@kulikof.ru" \
       com.google.android.emulator.description="Pixel 2 Emulator, running API TEST_API" \
       com.google.android.emulator.version="IMAGE_TEST_TAG-TEST_API-TEST_ABI/TEST_BUILD_ID"
 
+# Workaround for https://github.com/debuerreotype/docker-debian-artifacts/issues/24
+RUN mkdir -p /usr/share/man/man1
+
 # Install all the required emulator dependencies.
 # You can get these by running ./android/scripts/unix/run_tests.sh --verbose --verbose --debs | grep apt | sort -u
 # pulse audio is needed due to some webrtc dependencies.
