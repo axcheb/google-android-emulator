@@ -10,7 +10,7 @@ LABEL maintainer="nikita@kulikof.ru" \
 # pulse audio is needed due to some webrtc dependencies.
 RUN apt-get update -qq && apt-get install -y -qq \
 # Needed for install / debug
-    curl unzip procps bash wget \
+    curl unzip procps bash wget default-jre \
 # Emulator & video bridge dependencies
     libc6 libdbus-1-3 libfontconfig1 libgcc1 \
     libpulse0 libtinfo5 libx11-6 libxcb1 libxdamage1 \
@@ -48,4 +48,5 @@ EXPOSE 5555
 EXPOSE 5556
 ENV ANDROID_SDK_ROOT /android/sdk
 ENV ANDROID_AVD_HOME /android-home
+ENV ANDROID_HOME /android/sdk
 WORKDIR /android/sdk
