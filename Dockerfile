@@ -49,8 +49,3 @@ EXPOSE 5556
 ENV ANDROID_SDK_ROOT /android/sdk
 ENV ANDROID_AVD_HOME /android-home
 WORKDIR /android/sdk
-
-# Note, we will not be using gpu acceleration, nor will the emulator be visible.
-# You will need to make use of the grpc snapshot/webrtc functionality to actually interact with
-# the emulator.
-CMD ["/android/sdk/launch-emulator.sh"]
