@@ -53,4 +53,5 @@ ENV ANDROID_SDK_ROOT /android/sdk
 ENV ANDROID_AVD_HOME /android-home
 ENV ANDROID_HOME /android/sdk
 ENV PATH="$ANDROID_HOME/adb:${PATH}"
+ENV PATH="$ANDROID_HOME/platform-tools:${PATH}"
 WORKDIR /android/sdk
