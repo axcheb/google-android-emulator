@@ -52,4 +52,5 @@ EXPOSE 5556
 ENV ANDROID_SDK_ROOT /android/sdk
 ENV ANDROID_AVD_HOME /android-home
 ENV ANDROID_HOME /android/sdk
+ENV PATH="$ANDROID_HOME/adb:${PATH}"
 WORKDIR /android/sdk
