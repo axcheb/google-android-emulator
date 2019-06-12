@@ -29,14 +29,14 @@ RUN mkdir -p /android/sdk/platforms && \
     mkdir -p /android-home
 
 RUN wget -q -P /android/sdk/ https://dl.google.com/android/repository/sys-img/android/x86_64-29_r05.zip
-RUN wget -q -P /android/sdk/ https://dl.google.com/android/repository/emulator-linux-5598178.zip
+RUN wget -q -P /android/sdk/ https://dl.google.com/android/repository/emulator-linux-5645604.zip
 COPY launch-emulator.sh /android/sdk/
 COPY default.pa /android/sdk/
 COPY platform-tools /android/sdk/
 COPY avd /android-home
 COPY default.pa /etc/pulse/default.pa
 
-RUN unzip -u -o /android/sdk/emulator-linux-5598178.zip -d /android/sdk/ && \
+RUN unzip -u -o /android/sdk/emulator-linux-5645604.zip -d /android/sdk/ && \
     unzip -u -o /android/sdk/x86_64-29_r05.zip -d /android/sdk/system-images/android && \
     gpasswd -a root audio && \
     chmod +x /android/sdk/launch-emulator.sh
