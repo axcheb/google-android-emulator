@@ -1,3 +1,20 @@
+# Builder image: download and unzip dependencies
+FROM debian:bullseye-slim as builder
+
+RUN apt-get update -qq && apt-get install -y -qq \
+    unzip wget
+
+RUN mkdir -p /android/sdk/platforms && \
+    mkdir -p /android/sdk/platform-tools && \
+    mkdir -p /android/sdk/system-images
+
+RUN wget -q -P /android/sdk/ https://dl.google.com/android/repository/sys-img/google_apis/x86_64-30_r11.zip
+RUN wget -q -P /android/sdk/ https://dl.google.com/android/repository/emulator-linux_x64-7820599.zip
+
+RUN unzip -u -o /android/sdk/emulator-linux_x64-7820599.zip -d /android/sdk/ && \
+    unzip -u -o /android/sdk/x86_64-30_r11.zip -d /android/sdk/system-images/android
+
+# Final image
 FROM debian:bullseye-slim
 LABEL maintainer="nikita@kulikof.ru" \
       com.google.android.emulator.build-date="TEST_DATE" \
@@ -12,7 +29,7 @@ RUN mkdir -p /usr/share/man/man1
 # pulse audio is needed due to some webrtc dependencies.
 RUN apt-get update -qq && apt-get install -y -qq \
 # Needed for install / debug
-    curl unzip procps bash wget default-jre \
+    curl procps bash default-jre \
 # Emulator & video bridge dependencies
     libc6 libdbus-1-3 libfontconfig1 libgcc1 \
     libpulse0 libtinfo5 libx11-6 libxcb1 libxdamage1 \
@@ -22,13 +39,7 @@ RUN apt-get update -qq && apt-get install -y -qq \
 # We explicitly curl the image from a public site to make sure we
 # don't accidentally publish internal testing images.
 # Now we configure the user account under which we will be running the emulator
-RUN mkdir -p /android/sdk/platforms && \
-    mkdir -p /android/sdk/platform-tools && \
-    mkdir -p /android/sdk/system-images && \
-    mkdir -p /android-home
-
-RUN wget -q -P /android/sdk/ https://dl.google.com/android/repository/sys-img/google_apis/x86_64-30_r11.zip
-RUN wget -q -P /android/sdk/ https://dl.google.com/android/repository/emulator-linux_x64-7820599.zip
+RUN mkdir -p /android-home
                              
 COPY launch-emulator.sh /android/sdk/
 COPY default.pa /android/sdk/
@@ -36,10 +47,10 @@ COPY platform-tools /android/sdk/
 COPY avd /android-home
 COPY default.pa /etc/pulse/default.pa
 
-RUN unzip -u -o /android/sdk/emulator-linux_x64-7820599.zip -d /android/sdk/ && \
-    unzip -u -o /android/sdk/x86_64-30_r11.zip -d /android/sdk/system-images/android && \
-    gpasswd -a root audio && \
+RUN gpasswd -a root audio && \
     chmod +x /android/sdk/launch-emulator.sh
+
+COPY --from=builder /android/sdk /android/sdk
 
 # Create an initial snapshot so we will boot fast next time around.
 # Doesn't work due to not being able run privileged container
