@@ -6,13 +6,14 @@ RUN apt-get update -qq && apt-get install -y -qq \
 
 RUN mkdir -p /android/sdk/platforms && \
     mkdir -p /android/sdk/platform-tools && \
-    mkdir -p /android/sdk/system-images
+    mkdir -p /android/sdk/system-images && \
+    mkdir -p /android/tmp
 
-RUN wget -q -P /android/sdk/ https://dl.google.com/android/repository/sys-img/google_apis/x86_64-30_r11.zip
-RUN wget -q -P /android/sdk/ https://dl.google.com/android/repository/emulator-linux_x64-8420304.zip
+RUN wget -q -P /android/tmp/ https://dl.google.com/android/repository/sys-img/google_apis/x86_64-30_r11.zip
+RUN wget -q -P /android/tmp/ https://dl.google.com/android/repository/emulator-linux_x64-8420304.zip
 
-RUN unzip -u -o /android/sdk/emulator-linux_x64-8420304.zip -d /android/sdk/ && \
-    unzip -u -o /android/sdk/x86_64-30_r11.zip -d /android/sdk/system-images/android
+RUN unzip -u -o /android/tmp/emulator-linux_x64-8420304.zip -d /android/sdk/ && \
+    unzip -u -o /android/tmp/x86_64-30_r11.zip -d /android/sdk/system-images/android
 
 # Final image
 FROM debian:bullseye-slim
