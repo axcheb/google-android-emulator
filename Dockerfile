@@ -12,7 +12,7 @@ RUN mkdir -p /android/sdk/platforms && \
 RUN wget -q -P /android/tmp/ https://dl.google.com/android/repository/sys-img/google_apis/x86_64-30_r11.zip
 RUN wget -q -P /android/tmp/ https://dl.google.com/android/repository/emulator-linux_x64-8420304.zip
 
-RUN unzip -u -o /android/tmp/emulator-linux_x64-8420304.zip -d /android/sdk/ && \
+RUN unzip -u -o /android/tmp/emulator-linux_x64-9322596.zip -d /android/sdk/ && \
     unzip -u -o /android/tmp/x86_64-30_r11.zip -d /android/sdk/system-images/android
 
 # Final image
