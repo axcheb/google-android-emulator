@@ -10,9 +10,9 @@ RUN mkdir -p /android/sdk/platforms && \
     mkdir -p /android/tmp
 
 RUN wget -q -P /android/tmp/ https://dl.google.com/android/repository/sys-img/google_apis/x86_64-30_r12.zip
-RUN wget -q -P /android/tmp/ https://dl.google.com/android/repository/emulator-linux_x64-10410302.zip
+RUN wget -q -P /android/tmp/ https://dl.google.com/android/repository/emulator-linux_x64-11237101.zip
 
-RUN unzip -u -o /android/tmp/emulator-linux_x64-10410302.zip -d /android/sdk/ && \
+RUN unzip -u -o /android/tmp/emulator-linux_x64-11237101.zip -d /android/sdk/ && \
     unzip -u -o /android/tmp/x86_64-30_r12.zip -d /android/sdk/system-images/android
 
 # Final image
